@@ -10,6 +10,38 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+- kind: blog_comment
+  properties:
+  - name: post_id
+  - name: created
+    direction: desc
+
+- kind: blog_post
+  properties:
+  - name: category_id
+  - name: visable
+  - name: created
+
+- kind: blog_post
+  properties:
+  - name: category_id
+  - name: visable
+  - name: created
+    direction: desc
+
+- kind: blog_post
+  properties:
+  - name: category_id
+  - name: visable
+  - name: title
+
+- kind: blog_post
+  properties:
+  - name: category_id
+  - name: visable
+  - name: title
+    direction: desc
+
 - kind: django_admin_log
   properties:
   - name: user_id

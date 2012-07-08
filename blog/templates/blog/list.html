@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block metaTitle %}{{category.name}}{% endblock %}
+{% block header %}<a href="{% url blog_list category.slug %}">{{category.name}}</a>{% endblock %}
+{% block content %}
+    <span style="float:right; font-size:10px;">
+	<a href="?ob=created&o={% if request.GET.o == 'DESC' %}ASC{% else %}DESC{% endif %}&page={{ posts.number }}">Created {% if request.GET.ob == 'created' %}{% if request.GET.o == 'DESC' %}&uarr;{% else %}&darr;{% endif %}{% endif %}</a> |
+	<a href="?ob=title&o={% if request.GET.o == 'DESC' %}ASC{% else %}DESC{% endif %}&page={{ posts.number }}">Title {% if request.GET.ob == 'title' %}{% if request.GET.o == 'DESC' %}&uarr;{% else %}&darr;{% endif %}{% endif %}</a>
+    </span>
+    {% for post in posts.object_list %}
+    <div class="post">
+	    <h2><a href="{% url blog_view post.slug %}">{{post.title}}</a></h2>
+	    <span style="font-size:9px;">{{post.created}}</span>
+	    {{post.content|safe}}
+    </div>
+    {% endfor %}
+<div class="pagination">
+    <span class="step-links">
+        {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}{% if request.GET.o %}&o={{request.GET.o}}{% endif %}{% if request.GET.ob %}&ob={{request.GET.ob}}{% endif %}"><<</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}{% if request.GET.o %}&o={{request.GET.o}}{% endif %}{% if request.GET.ob %}&ob={{request.GET.ob}}{% endif %}">>></a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

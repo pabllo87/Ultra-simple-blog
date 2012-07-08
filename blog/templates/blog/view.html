@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block metaTitle %}{{post.title}} - {{post.category.name}}{% endblock %}
+{% block header %}{{post.title}}{% endblock %}
+{% block content %}
+        {% if post%}
+                Category: <a href="{% url blog_list post.category.slug %}">{{post.category.name}}</a><br />
+                <span style="font-size:9px;">{{post.created}}</span><br />
+                {{post.content|safe}}
+
+                <form method='post' action=''>{% csrf_token %}
+                        <table>
+                        {{form.as_table}}
+                        <tr><td colspan=2><input type="submit" value="Comment" /></td></tr>
+                        </table>
+                </form>
+                {% for c in comments %}
+                        <p style="font-size:10px; border-top: solid 1px #604322"><i>{{c.name}}</i><br />
+                        <span>{{c.created}}</span><br />
+                        <span>{{c.content}}</span></p>
+                {% endfor %}    
+        {% else %}
+                Post does not exist
+        {% endif %}
+{% endblock %}

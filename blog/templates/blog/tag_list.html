@@ -1,0 +1,8 @@
+<h3>Categories</h3>
+<ul class="list">
+    {% if category_list %}
+    {% for cat in category_list %}
+        <li><a href="{% url blog_list cat.slug %}">{{cat.name}}</a></li>
+    {% endfor %}
+    {% endif %}
+</ul>

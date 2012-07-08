@@ -1,53 +1,66 @@
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-    dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}"
-    xml:lang="{% firstof LANGUAGE_CODE 'en' %}"
-    lang="{% firstof LANGUAGE_CODE 'en' %}">
-  <head>
-    <title>{% block title %}{% endblock %} - Nonrel-testapp</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 3.0 License
 
-    {% block css %}
-    {% endblock %}
-
-    {% block preload_js %}
-    {% endblock %}
-
-    {% block extra-head %}{% endblock %}
-  </head>
-
-  <body>
-    <div id="header">
-      <a id="logo" href="/">Nonrel-testapp</a>
-    </div>
-
-    <div class="columns">
-      <div id="content" class="column">
-        {% block content-header %}
-          {% if error %}<div class="error">{{ error }}</div>{% endif %}
-          {% if info %}<div class="info">{{ info }}</div>{% endif %}
-          {% if messages %}
-            {% for message in messages %}
-              <div class="info">{{ message }}</div>
-            {% endfor %}
-          {% endif %}
-        {% endblock %}
-
-        {% block content %}{% endblock %}
-      </div>
-
-      <div id="sidebar" class="column">
-        {% block sidebar %}
-        {% endblock %}
-      </div>
-    </div>
-
-    <div id="footer">
-      <p>Powered by <a href="http://www.allbuttonspressed.com/projects/django-nonrel">Django-nonrel</a></p>
-    </div>
-
-    {% block js %}
-    {% endblock %}
-  </body>
+Name       : Sandstorm
+Description: A two-column, fixed-width design with brown color scheme.
+Version    : 1.0
+Released   : 20120205
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<title>{% block metaTitle %}{% endblock %}</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/media/style.css" />
+</head>
+<body>
+<div id="wrapper">
+	<div id="header">
+		<div id="logo">
+			<h1>{% block header %}{% endblock %}</h1>
+		</div>
+		<div id="menu">
+			<ul>
+				{% load flatpages %}
+                                {% get_flatpages as flatpages %}
+                                {% for page in flatpages %}
+                                  <li><a href="{{page.url}}">{{ page.title }}</a></li>
+                                {% endfor %}
+			</ul>
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+		</div>
+	</div>
+	<div id="page">
+		<div id="sidebar">
+			{% load blog %}
+                        {% get_category %}
+		</div>
+		<div id="content">
+			{% block content %}{% endblock %}
+			<br class="clearfix" />
+		</div>
+		<br class="clearfix" />
+	</div>
+	<div id="page-bottom"> | 
+                        {% for page in flatpages %}
+                          <a href="{{page.url}}">{{ page.title }}</a> |
+                        {% endfor %}
+		<br class="clearfix" />
+	</div>
+</div>
+<div id="footer">
+	Copyright (c) 2012 Sitename.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org/">FCT</a>.
+</div>
+</body>
 </html>

@@ -20,15 +20,19 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.auth',
     'django.contrib.sessions',
+    'django.contrib.messages',
+    'flatpages',
     'djangotoolbox',
     'permission_backend_nonrel',
     'autoload',
     'dbindexer',
+    'tinymce',
+    'blog',
 
     # djangoappengine should come last, so it can override a few manage.py commands
     'djangoappengine',
 )
-
+SITE_ID = 50
 MIDDLEWARE_CLASSES = (
     # This loads the index definitions, so it has to come first
     'autoload.middleware.AutoloadMiddleware',
@@ -38,6 +42,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -60,3 +65,15 @@ ADMIN_MEDIA_PREFIX = '/media/admin/'
 TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
 
 ROOT_URLCONF = 'urls'
+
+TINYMCE_JS_URL = '/media/js/tiny_mce/tiny_mce_src.js'
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table,spellchecker,paste,searchreplace",
+    'theme': "advanced",
+    'cleanup_on_startup': True,
+    "file_browser_callback" : "CustomFileBrowser",
+    'custom_undo_redo_levels': 10,
+}
+TINYMCE_FILEBROWSER = False
+TINYMCE_SPELLCHECKER = False
+TINYMCE_COMPRESSOR = False
