@@ -10,7 +10,7 @@
     <div class="post">
 	    <h2><a href="{% url blog_view post.slug %}">{{post.title}}</a></h2>
 	    <span style="font-size:9px;">{{post.created}}</span>
-	    {{post.content|safe|truncatewords_html:25}}
+	    {{post.content|safe}}
     </div>
     {% endfor %}
 <div class="pagination">
